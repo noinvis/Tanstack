@@ -108,7 +108,7 @@ const CountryView: FC<Props> = ({ data, setData }) => {
             name="population"
             value={formData.population}
             onChange={handleChange}
-            type="text"
+            type="number"
             placeholder="Enter Population"
             className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
           />
@@ -117,7 +117,7 @@ const CountryView: FC<Props> = ({ data, setData }) => {
             name="area"
             value={formData.area}
             onChange={handleChange}
-            type="text"
+            type="number"
             placeholder="Enter Area"
             className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
           />
