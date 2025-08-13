@@ -6,6 +6,7 @@ import {
   type FormEvent,
 } from "react";
 import type { ICountry } from "../../pages/home/Home";
+import { api } from "../../api";
 
 interface Props {
   data: ICountry[];
@@ -56,6 +57,7 @@ const CountryView: FC<Props> = ({ data, setData }) => {
   };
   // Delete
   const handleDelete = (id: string) => {
+    api.delete(`country/${id}`)
     setData((prev) => prev.filter((country) => country.id !== id));
   };
   // Update
