@@ -71,7 +71,11 @@ const CountryView: FC<Props> = ({ data, setData }) => {
   };
 
   if (data.length === 0) {
-    return <p className="text-center">No countries found</p>;
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-center">No countries found</p>;
+      </div>
+    ) 
   }
 
   return (

@@ -59,16 +59,8 @@ const Phone = () => {
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]:
-        name === "price" || name === "storage" || name === "ram"
-          ? Number(value)
-          : value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Update
@@ -89,6 +81,14 @@ const Phone = () => {
     setUpdateItem(item);
     setFormData(item);
   };
+
+  if (data.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-center">No countries found</p>;
+      </div>
+    ) 
+  }
 
   return (
     <div className="container py-[30px]">
