@@ -5,18 +5,18 @@ import { api } from "../../api";
 interface IPhone {
   id: string;
   title: string;
-  price: string;
-  storage: string;
-  ram: string;
+  price: number;
+  storage: number;
+  ram: number;
   brand: string;
 }
 
 const initialState: IPhone = {
   id: "",
   title: "",
-  price: "",
-  storage: "",
-  ram: "",
+  price: 0,
+  storage: 0,
+  ram: 0,
   brand: "",
 };
 
@@ -25,7 +25,7 @@ const Phone = () => {
   const [updateItem, setUpdateItem] = useState<IPhone | null>(null);
   const queryClient = useQueryClient();
 
-  const { data = [] } = useQuery({
+  const { data = [] } = useQuery<IPhone[]>({
     queryKey: ["phoneKey"],
     queryFn: () => api.get("phone").then((res) => res.data),
   });
@@ -59,8 +59,13 @@ const Phone = () => {
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "number" ? Number(value) : value,
+    });
   };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Update
@@ -80,14 +85,73 @@ const Phone = () => {
   const handleUpdate = (item: IPhone) => {
     setUpdateItem(item);
     setFormData(item);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (data.length === 0) {
     return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <p className="text-center text-[30px] font-medium">No countries found</p>
-      </div>
-    ) 
+      <>
+        <form
+          onSubmit={handleSubmit}
+          className="w-[500px] max-[530px]:w-full shadow-lg mx-auto rounded-2xl p-[1rem] my-[30px]"
+        >
+          <p className="text-center text-[24px]">
+            {updateItem ? "Update Phone" : "Create Phone"}
+          </p>
+          <div className="flex flex-col gap-[10px] my-[30px]">
+            <input
+              className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Enter Title"
+              required
+            />
+            <input
+              className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+              name="price"
+              type="number"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Enter Price"
+              required
+            />
+            <input
+              className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+              name="storage"
+              type="number"
+              value={formData.storage}
+              onChange={handleChange}
+              placeholder="Enter Storage"
+              required
+            />
+            <input
+              className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+              name="ram"
+              type="number"
+              value={formData.ram}
+              onChange={handleChange}
+              placeholder="Enter RAM"
+              required
+            />
+            <input
+              className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+              name="brand"
+              value={formData.brand}
+              onChange={handleChange}
+              placeholder="Enter Brand"
+              required
+            />
+          </div>
+          <button className="w-full bg-green-500 rounded-2xl text-white py-[8px] font-medium cursor-pointer">
+            {updateItem ? "Update" : "Create"}
+          </button>
+        </form>
+        <div className="flex justify-center items-center h-[20vh]">
+          <p className="text-center text-[30px] font-medium">No phones found</p>
+        </div>
+      </>
+    );
   }
 
   return (
@@ -148,7 +212,6 @@ const Phone = () => {
           {updateItem ? "Update" : "Create"}
         </button>
       </form>
-
       <p className="text-center text-[30px] mb-[10px]">Phones</p>
       <div className="grid grid-cols-4 gap-[20px] max-[1010px]:grid-cols-3 max-[800px]:grid-cols-2 max-[530px]:grid-cols-1">
         {data.map((item: IPhone) => (

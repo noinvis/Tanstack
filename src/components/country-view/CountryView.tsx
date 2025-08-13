@@ -68,6 +68,7 @@ const CountryView: FC<Props> = ({ data, setData }) => {
       population: item.population,
       area: item.area,
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (data.length === 0) {
