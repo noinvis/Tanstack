@@ -124,7 +124,7 @@ const CountryView: FC<Props> = ({ data, setData }) => {
           {updateItem ? "Update" : "Create"}
         </button>
       </form>
-      <div className="flex justify-center items-center h-[60vh]">
+      <div className="flex justify-center items-center h-[20vh]">
         <p className="text-center text-[30px] font-medium">No countries found</p>
       </div>
       </>
