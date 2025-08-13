@@ -73,9 +73,61 @@ const CountryView: FC<Props> = ({ data, setData }) => {
 
   if (data.length === 0) {
     return (
+      <>
+      <form
+        onSubmit={handleSubmit}
+        action=""
+        className="w-[500px] max-[530px]:w-full shadow-lg mx-auto rounded-2xl p-[1rem] my-[30px]"
+      >
+        <p className="text-center text-[24px]">
+          {updateItem ? "Update Country" : "Create Country"}
+        </p>
+        <div className="flex flex-col gap-[10px] my-[30px]">
+          <input
+            required
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter Name"
+            className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+          />
+          <input
+            required
+            name="capital"
+            value={formData.capital}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter Capital"
+            className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+          />
+          <input
+            required
+            name="population"
+            value={formData.population}
+            onChange={handleChange}
+            type="number"
+            placeholder="Enter Population"
+            className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+          />
+          <input
+            required
+            name="area"
+            value={formData.area}
+            onChange={handleChange}
+            type="number"
+            placeholder="Enter Area"
+            className="w-full outline-0 border border-[#999] rounded-2xl py-[10px] indent-5 focus:border-[green]"
+          />
+        </div>
+        <button className="w-full bg-green-500 rounded-2xl text-white py-[8px] font-medium cursor-pointer">
+          {updateItem ? "Update" : "Create"}
+        </button>
+      </form>
       <div className="flex justify-center items-center h-[60vh]">
         <p className="text-center text-[30px] font-medium">No countries found</p>
       </div>
+      </>
     ) 
   }
 
