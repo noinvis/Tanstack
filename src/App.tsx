@@ -1,6 +1,6 @@
 import { lazy, memo, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
-import Home from "./pages/home/Home";
+const Home = lazy(() => import("./pages/home/Home"));
 const Phone = lazy(() => import("./pages/phone/Phone"));
 const Layout = lazy(() => import("./pages/layout/Layout"));
 const NotFound = lazy(() => import("./pages/not-found/NotFound"));
