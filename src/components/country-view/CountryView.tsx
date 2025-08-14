@@ -24,7 +24,7 @@ const initialState: ICountry = {
 const CountryView: FC<Props> = ({ data, setData }) => {
   const [formData, setFormData] = useState(initialState);
   const [updateItem, setUpdateItem] = useState<ICountry | null>(null);
-  // Create new country
+  // Create country or Update country
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
